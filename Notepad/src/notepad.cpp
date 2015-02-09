@@ -41,5 +41,18 @@ void Notepad::on_actionOpen_triggered()
 
 void Notepad::on_actionSave_triggered()
 {
+    QString fileName = QFileDialog::getSaveFileName(this, tr("Save File"), QString(), tr("Text Files (*.txt);;C++ Files (*.cpp *.h)"));
 
+    if (!fileName.isEmpty()) {
+        QFile file(fileName);
+        if (!file.open(QIODevice::WriteOnly)) {
+            // error message
+        }
+        else {
+            QTextStream stream(&file);
+            stream << ui->textEdit->toPlainText();
+            stream.flush();
+            file.close();
+        }
+    }
 }
