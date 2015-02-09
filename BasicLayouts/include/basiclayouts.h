@@ -40,7 +40,7 @@ private:
     QTextEdit *bigEditor;
     QLabel *labels[NumGridRows];
     QLineEdit *lineEdits[NumGridRows];
-    QPushButton *buttons[NumGridRows];
+    QPushButton *buttons[NumButtons];
     QDialogButtonBox *buttonBox;
 
     QMenu *fileMenu;
