@@ -1,7 +1,6 @@
 #include <QtWidgets>
 
 #include "basiclayouts.h"
-#include <iostream>
 
 #define SAMPLE_TEXT "This widget takes up all the remaining " \
     "space in the top-level layout."
@@ -15,7 +14,6 @@ BasicLayouts::BasicLayouts(QWidget *parent)
     createGridGroupBox();
     createFormGroupBox();
 
-    /*
     // [1]
     bigEditor = new QTextEdit;
     bigEditor->setPlainText(tr(SAMPLE_TEXT));
@@ -26,17 +24,15 @@ BasicLayouts::BasicLayouts(QWidget *parent)
     connect(buttonBox, SIGNAL(accepted()), this, SLOT(accept()));
     connect(buttonBox, SIGNAL(rejected()), this, SLOT(reject()));
 
-    */
     // [2]
     QVBoxLayout *mainLayout = new QVBoxLayout;
     mainLayout->setMenuBar(menuBar);
     mainLayout->addWidget(horizontalGroupBox);
     mainLayout->addWidget(gridGroupBox);
     mainLayout->addWidget(formGroupBox);
-    /*
+    mainLayout->addWidget(bigEditor);
     mainLayout->addWidget(buttonBox);
 
-    */
     setLayout(mainLayout);
 
     setWindowTitle(tr("Basic Layouts"));
@@ -61,15 +57,9 @@ void BasicLayouts::createHorizontalGroupBox() {
     horizontalGroupBox = new QGroupBox(tr("Horizontal layout"));
     QHBoxLayout *layout = new QHBoxLayout;
 
-    if (layout == NULL)
-        std::cout << "layout error" << std::endl;
-
     for (int i = 0; i < NumButtons; ++i) {
         buttons[i] = new QPushButton(tr("Button %1").arg(i + 1));
-        if (buttons[i] == NULL)
-            std::cout << "error" << std::endl;
-        else
-            layout->addWidget(buttons[i]);
+        layout->addWidget(buttons[i]);
     }
     horizontalGroupBox->setLayout(layout);
 }
@@ -79,7 +69,7 @@ void BasicLayouts::createGridGroupBox() {
     QGridLayout *layout = new QGridLayout;
 
     for (int i = 0; i < NumGridRows; ++i) {
-        labels[i] = new QLabel(tr("Line %1:").arg(i + i));
+        labels[i] = new QLabel(tr("Line %1:").arg(i + 1));
         lineEdits[i] = new QLineEdit;
         layout->addWidget(labels[i], i + 1, 0);
         layout->addWidget(lineEdits[i], i + 1, 1);
