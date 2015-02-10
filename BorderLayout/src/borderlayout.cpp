@@ -53,6 +53,11 @@ QSize BorderLayout::minimumSize() const {
     return calculateSize(MinimumSize);
 }
 
+std::ostream& operator << (std::ostream& ostr, const QRect& rect) {
+    ostr << rect.x() << " " << rect.y() << " " << rect.width() << " " << rect.height();
+    return ostr;
+}
+
 void BorderLayout::setGeometry(const QRect &rect) {
     ItemWrapper *center = 0;
     int eastWidth = 0;
@@ -61,7 +66,7 @@ void BorderLayout::setGeometry(const QRect &rect) {
     int southHeight = 0;
     int centerHeight = 0;
 
-    std::cout << "setGeometry: " << rect.x() << " " << rect.y() << " " << rect.width() << " " << rect.height() << std::endl;
+    std::cout << "setGeometry: " << rect << std::endl;
     QLayout::setGeometry(rect);
 
     for (int i = 0; i < list.size(); ++i) {
@@ -75,16 +80,29 @@ void BorderLayout::setGeometry(const QRect &rect) {
             northHeight += item->geometry().height() + spacing();
         }
         else if (position == South) {
-            item->setGeometry(QRect(item->geometry().x(),
+            std::cout << "SouthItem->geometry(): " << item->geometry() << std::endl;
+            //item->setGeometry(QRect(item->geometry().x(),
+                        //item->geometry().y(), rect.width(),
+                        //item->sizeHint().height()));
+            QRect r1 = QRect(item->geometry().x(),
                         item->geometry().y(), rect.width(),
-                        item->sizeHint().height()));
+                        item->sizeHint().height());
+            std::cout << "SouthItem->r1(): " << item->geometry() << std::endl;
+            item->setGeometry(r1);
 
             southHeight += item->geometry().height() + spacing();
 
-            item->setGeometry(QRect(rect.x(),
+            QRect r2 = QRect(rect.x(),
                         rect.y() + rect.height() - southHeight + spacing(),
                         item->geometry().width(),
-                        item->geometry().height()));
+                        item->geometry().height());
+            std::cout << "SouthItem->r2(): " << item->geometry() << std::endl;
+            item->setGeometry(r2);
+            //item->setGeometry(QRect(rect.x(),
+                        //rect.y() + rect.height() - southHeight + spacing(),
+                        //item->geometry().width(),
+                        //item->geometry().height()));
+            std::cout << "SouthItem->geometry2 (): " << item->geometry() << std::endl;
         }
         else if (position == Center) {
             center = wrapper;
