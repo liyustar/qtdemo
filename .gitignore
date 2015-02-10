@@ -1,3 +1,7 @@
 tmp
-ui_*.h
+
 Makefile*
+*.user
+ui_*.h
+
+core
