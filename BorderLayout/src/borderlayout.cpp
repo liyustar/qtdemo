@@ -1,4 +1,5 @@
 #include "borderlayout.h"
+#include <iostream>
 
 BorderLayout::BorderLayout(QWidget *parent, int margin, int spacing):
     QLayout(parent)
@@ -35,10 +36,12 @@ bool BorderLayout::hasHeightForWidth() const {
 }
 
 int BorderLayout::count() const {
+    std::cout << "count()" << std::endl;
     return list.size();
 }
 
 QLayoutItem *BorderLayout::itemAt(int index) const {
+    std::cout << "itemAt(): " << index << std::endl;
     ItemWrapper *wrapper = list.value(index);
     if (wrapper)
         return wrapper->item;
@@ -58,6 +61,7 @@ void BorderLayout::setGeometry(const QRect &rect) {
     int southHeight = 0;
     int centerHeight = 0;
 
+    std::cout << "setGeometry: " << rect.x() << " " << rect.y() << " " << rect.width() << " " << rect.height() << std::endl;
     QLayout::setGeometry(rect);
 
     for (int i = 0; i < list.size(); ++i) {
@@ -124,6 +128,7 @@ QSize BorderLayout::sizeHint() const {
 }
 
 QLayoutItem *BorderLayout::takeAt(int index) {
+    std::cout << "takeAt(): " << index << std::endl;
     if (index >= 0 && index < list.size()) {
         ItemWrapper *layoutStruct = list.takeAt(index);
         return layoutStruct->item;
@@ -153,6 +158,12 @@ QSize BorderLayout::calculateSize(SizeType sizeType) const {
 
         if (position == West || position == East || position == Center)
             totalSize.rwidth() += itemSize.width();
+    }
+    if (sizeType == SizeHint) {
+        std::cout << "sizeHint: " << totalSize.width() << " " << totalSize.height() << std::endl;
+    }
+    if (sizeType == MinimumSize) {
+        std::cout << "miniSize: " << totalSize.width() << " " << totalSize.height() << std::endl;
     }
     return totalSize;
 }
