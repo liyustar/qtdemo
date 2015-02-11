@@ -8,6 +8,8 @@ MainWindow::MainWindow() {
 
     createActions();
     createMenus();
+    createToolBars();
+    createStatusBar();
 }
 
 void MainWindow::createActions() {
@@ -78,4 +80,21 @@ void MainWindow::createMenus() {
     helpMenu->addAction(aboutQtAct);
 
     // add connect
+}
+
+void MainWindow::createToolBars() {
+    fileToolBar = addToolBar(tr("File"));
+    editToolBar = addToolBar(tr("Edit"));
+
+    fileToolBar->addAction(newAct);
+    fileToolBar->addAction(openAct);
+    fileToolBar->addAction(saveAct);
+
+    editToolBar->addAction(cutAct);
+    editToolBar->addAction(copyAct);
+    editToolBar->addAction(pasteAct);
+}
+
+void MainWindow::createStatusBar() {
+    statusBar()->showMessage(tr("Ready"));
 }

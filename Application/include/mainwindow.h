@@ -16,12 +16,16 @@ class MainWindow : public QMainWindow {
     private:
         void createActions();
         void createMenus();
+        void createToolBars();
+        void createStatusBar();
 
         QPlainTextEdit *textEdit;
 
         QMenu *fileMenu;
         QMenu *editMenu;
         QMenu *helpMenu;
+        QToolBar *fileToolBar;
+        QToolBar *editToolBar;
         QAction *newAct;
         QAction *openAct;
         QAction *saveAct;
