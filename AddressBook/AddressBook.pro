@@ -24,7 +24,7 @@ SOURCES += src/main.cpp\
 
 HEADERS  += include/mainwindow.h
 
-RESOURCES += rc/addressbook.qrc
+# RESOURCES += rc/addressbook.qrc
 
 UI_DIR   =  ui
 
