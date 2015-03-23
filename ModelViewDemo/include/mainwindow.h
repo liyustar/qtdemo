@@ -11,6 +11,8 @@ class MainWindow : public QMainWindow {
 
     private:
         void createMainLayout();
+        void createTreeListFileView();
+        void createExampleModel();
 
         QWidget *mainWidget;
 };
