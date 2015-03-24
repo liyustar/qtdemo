@@ -20,9 +20,13 @@ CONFIG(debug, debug|release) {
 }
 
 SOURCES += src/main.cpp\
-        src/mainwindow.cpp
+        src/mainwindow.cpp\
+        src/tablemodel.cpp\
+        src/addresswidget.cpp
 
-HEADERS  += include/mainwindow.h
+HEADERS  += include/mainwindow.h\
+            include/tablemodel.h\
+            include/addresswidget.h
 
 # RESOURCES += rc/addressbook.qrc
 
