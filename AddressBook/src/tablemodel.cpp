@@ -1,13 +1,13 @@
 #include "tablemodel.h"
 
-#include <QWidgets>
+#include <QWidget>
 
 TableModel::TableModel(QObject *parent)
     : QAbstractTableModel(parent)
 {
 }
 
-TableModel::TableModel(QList<QPair<QString, QString> > listofPairs, QObject * parent)
+TableModel::TableModel(QList<QPair<QString, QString> > pairs, QObject * parent)
     : QAbstractTableModel(parent)
 {
     listOfPairs = pairs;
@@ -32,7 +32,7 @@ QVariant TableModel::data(const QModelIndex &index, int role) const
         return QVariant();
 
     // 判断入参，ModelIndex的行值是否有效
-    ir (index.row() >= listOfPairs.size() || index.row() < 0)
+    if (index.row() >= listOfPairs.size() || index.row() < 0)
         return QVariant();
 
     if (role == Qt::DisplayRole) {
@@ -74,9 +74,9 @@ Qt::ItemFlags TableModel::flags(const QModelIndex &index) const
     return QAbstractTableModel::flags(index) | Qt::ItemIsEditable;
 }
 
-bool TableModel::setData(const QModelIndex &index, const QVariant &value, int role = Qt::EditRole) const
+bool TableModel::setData(const QModelIndex &index, const QVariant &value, int role)
 {
-    if (index.isVald() && role == Qt::EditRole) {
+    if (index.isValid() && role == Qt::EditRole) {
         int row = index.row();
 
         QPair<QString, QString> p = listOfPairs.value(row);
@@ -89,7 +89,7 @@ bool TableModel::setData(const QModelIndex &index, const QVariant &value, int ro
             return false;
 
         listOfPairs.replace(row, p);
-        emit(dataChaged(index, index));
+        emit(dataChanged(index, index));
 
         return true;
     }
@@ -97,7 +97,7 @@ bool TableModel::setData(const QModelIndex &index, const QVariant &value, int ro
     return false;
 }
 
-bool TableModel::insertRows(int position, int rows, const ModelIndex &index = QModelIndex())
+bool TableModel::insertRows(int position, int rows, const QModelIndex &index)
 {
     Q_UNUSED(index);
     beginInsertRows(QModelIndex(), position, position + rows - 1);
@@ -108,10 +108,10 @@ bool TableModel::insertRows(int position, int rows, const ModelIndex &index = QM
     }
 
     endInsertRows();
-    retrn true;
+    return true;
 }
 
-bool TableModel::removeRows(int position, int rows, const ModelIndex &index = QModelIndex())
+bool TableModel::removeRows(int position, int rows, const QModelIndex &index)
 {
     Q_UNUSED(index);
     beginRemoveRows(QModelIndex(), position, position + rows - 1);
@@ -121,7 +121,7 @@ bool TableModel::removeRows(int position, int rows, const ModelIndex &index = QM
     }
 
     endRemoveRows();
-    retrn true;
+    return true;
 }
 
 QList<QPair<QString, QString> > TableModel::getList()

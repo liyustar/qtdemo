@@ -17,13 +17,13 @@ class TableModel : public QAbstractTableModel {
         QVariant data(const QModelIndex &index, int role) const Q_DECL_OVERRIDE;
         QVariant headerData(int section, Qt::Orientation orientation, int role) const Q_DECL_OVERRIDE;
         Qt::ItemFlags flags(const QModelIndex &index) const Q_DECL_OVERRIDE;
-        bool setData(const QModelIndex &index, const QVariant &value, int role = Qt::EditRole) const Q_DECL_OVERRIDE;
-        bool insertRows(int position, int rows, const ModelIndex &index = QModelIndex()) Q_DECL_OVERRIDE;
-        bool removeRows(int position, int rows, const ModelIndex &index = QModelIndex()) Q_DECL_OVERRIDE;
+        bool setData(const QModelIndex &index, const QVariant &value, int role = Qt::EditRole) Q_DECL_OVERRIDE;
+        bool insertRows(int position, int rows, const QModelIndex &index = QModelIndex()) Q_DECL_OVERRIDE;
+        bool removeRows(int position, int rows, const QModelIndex &index = QModelIndex()) Q_DECL_OVERRIDE;
         QList<QPair<QString, QString> > getList();
 
     private:
-        QList<QPare<QString, QString> > listOfPairs;
+        QList<QPair<QString, QString> > listOfPairs;
 };
 
 #endif // TABLEMODEL_H_
