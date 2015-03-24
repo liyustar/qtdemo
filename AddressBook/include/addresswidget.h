@@ -7,7 +7,7 @@
 #include <QItemSelection>
 #include <QTabWidget>
 
-// class QSortFilterProxyModel;
+class QSortFilterProxyModel;
 class QItemSelectionModel;
 
 class AddressWidget : public QTabWidget
@@ -34,7 +34,7 @@ class AddressWidget : public QTabWidget
         TableModel *table;
         QTabWidget *tab;
         // NewAddressTab *newAddressTab;
-        // QSortFilterProxyModel *proxyModel;
+        QSortFilterProxyModel *proxyModel;
 };
 
 #endif // ADDRESSWIDGET_H_

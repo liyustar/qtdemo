@@ -34,7 +34,7 @@ void AddressWidget::writeToFile(const QString &fileName)
 void AddressWidget::addEntry()
 {
     static int n = 0;
-    const char ALP[27] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    const char ALP[27] = "JKLRXUCGNHAODPQBMFISETVWYZ";
     qDebug() << "addEntry";
 
     std::ostringstream oss;
@@ -81,14 +81,26 @@ void AddressWidget::setupTabs()
         QString regExp = QString("^[%1].*").arg(str);
 
         // Set Proxy Model
+        proxyModel = new QSortFilterProxyModel(this);
+        proxyModel->setSourceModel(table);
+        proxyModel->setFilterRegExp(QRegExp(regExp, Qt::CaseInsensitive));
+        proxyModel->setFilterKeyColumn(0);
 
         QTableView *tableView = new QTableView;
-        tableView->setModel(table);
+        tableView->setModel(proxyModel);
 
         // set view prop
-        // tableView->verticalHeader()->hide();
+        tableView->setSelectionBehavior(QAbstractItemView::SelectRows);
+        tableView->setEditTriggers(QAbstractItemView::NoEditTriggers);
+        tableView->setSelectionMode(QAbstractItemView::SingleSelection);
+        tableView->verticalHeader()->hide();
+        tableView->horizontalHeader()->setStretchLastSection(true);
 
-        // tableView->setSortingEnabled(true);
+        tableView->setSortingEnabled(true);
+
+        // connect(tableView->selectionModel(),
+                // SIGNAL(selectionChanged(QItemSelection, QItemSelection)),
+                // this, SIGNAL(selectionChanged(QItemSelection)));
 
         addTab(tableView, str);
     }

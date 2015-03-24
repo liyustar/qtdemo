@@ -1,6 +1,6 @@
 #include "tablemodel.h"
 
-#include <QWidget>
+#include <QtWidgets>
 
 TableModel::TableModel(QObject *parent)
     : QAbstractTableModel(parent)
@@ -102,6 +102,7 @@ bool TableModel::insertRows(int position, int rows, const QModelIndex &index)
     Q_UNUSED(index);
     beginInsertRows(QModelIndex(), position, position + rows - 1);
 
+    qDebug() << "insertRows: " << rows;
     for (int row = 0; row < rows; ++row) {
         QPair<QString, QString> pair(" ", " ");
         listOfPairs.insert(position, pair);
@@ -116,6 +117,7 @@ bool TableModel::removeRows(int position, int rows, const QModelIndex &index)
     Q_UNUSED(index);
     beginRemoveRows(QModelIndex(), position, position + rows - 1);
 
+    qDebug() << "removeRows: " << rows;
     for (int row = 0; row < rows; ++row) {
         listOfPairs.removeAt(position);
     }
