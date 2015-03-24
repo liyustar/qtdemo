@@ -3,6 +3,8 @@
 
 #include <QMainWindow>
 
+#include "addresswidget.h"
+
 class QTableView;
 class QLineEdit;
 class QPushButton;
@@ -22,6 +24,8 @@ class MainWindow : public QMainWindow {
         QPushButton *btnAdd;
         QPushButton *btnRemove;
         QLineEdit *edtSearch;
+
+        AddressWidget *addressWidget;
 };
 
 #endif // MAINWINDOW_H_

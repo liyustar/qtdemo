@@ -3,7 +3,10 @@
 #include <QtWidgets>
 
 MainWindow::MainWindow() {
-    createMainLayout();
+    // createMainLayout();
+
+    addressWidget = new AddressWidget;
+    setCentralWidget(addressWidget);
 }
 
 void MainWindow::createMainLayout() {

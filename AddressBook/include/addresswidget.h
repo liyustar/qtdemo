@@ -29,9 +29,10 @@ class AddressWidget : public QTabWidget
         void selectionChanged(const QItemSelection &selected);
 
     private:
-        // void setupTabs();
+        void setupTabs();
 
         TableModel *table;
+        QTabWidget *tab;
         // NewAddressTab *newAddressTab;
         // QSortFilterProxyModel *proxyModel;
 };
