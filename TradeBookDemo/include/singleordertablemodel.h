@@ -3,7 +3,25 @@
 
 #include <QAbstractTableModel>
 #include <QList>
-#include <QPair>
+
+#include <string>
+
+enum STOCK_DIRECT {
+    BUY,
+    SELL,
+};
+
+typedef struct Stock {
+    Stock(std::string s, STOCK_DIRECT d, double p, int q)
+        : symbol(s), direct(d), price(p), quantity(q)
+    {
+    }
+
+    std::string symbol;
+    STOCK_DIRECT direct;
+    double price;
+    int quantity;
+} Stock_t;
 
 class SingleOrderTableModel : public QAbstractTableModel {
     Q_OBJECT

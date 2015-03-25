@@ -22,12 +22,14 @@ CONFIG(debug, debug|release) {
 SOURCES += src/main.cpp\
         src/mainwindow.cpp\
         src/orderwidget.cpp\
+        src/singleorderform.cpp\
         src/singleordertab.cpp\
         src/singleordertablemodel.cpp\
         src/singleorderformdialog.cpp
 
 HEADERS  += include/mainwindow.h\
             include/orderwidget.h\
+            include/singleorderform.h\
             include/singleordertab.h\
             include/singleordertablemodel.h\
             include/singleorderformdialog.h
