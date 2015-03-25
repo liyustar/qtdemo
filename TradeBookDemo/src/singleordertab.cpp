@@ -1,11 +1,15 @@
 #include "singleordertab.h"
 #include "singleorderformdialog.h"
+#include "singleordertablemodel.h"
+#include "singleorderform.h"
 
 #include <QtWidgets>
 
 SingleOrderTab::SingleOrderTab(QWidget *parent)
     : QWidget(parent)
 {
+    orderForm = new SingleOrderForm(this);
+
     tableModel = new SingleOrderTableModel(this);
 
     tableView = new QTableView;
@@ -30,6 +34,7 @@ void SingleOrderTab::createLayout()
     btnLayout->addWidget(btnOrder, 0, 3);
 
     QVBoxLayout *layout = new QVBoxLayout;
+    layout->addWidget(orderForm, 2);
     layout->addWidget(tableView, 1);
     layout->addLayout(btnLayout);
 

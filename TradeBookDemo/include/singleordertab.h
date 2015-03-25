@@ -1,12 +1,13 @@
 #ifndef SINGLEORDERTAB_H_
 #define SINGLEORDERTAB_H_
 
-#include "singleordertablemodel.h"
-
 #include <QWidget>
 
 class QTableView;
 class QPushButton;
+
+class SingleOrderForm;
+class SingleOrderTableModel;
 
 class SingleOrderTab : public QWidget
 {
@@ -23,6 +24,8 @@ class SingleOrderTab : public QWidget
         void sendOrder();
 
     private:
+        SingleOrderForm *orderForm;
+
         SingleOrderTableModel *tableModel;
         QTableView *tableView;
         QPushButton *btnAdd;
