@@ -23,12 +23,14 @@ SOURCES += src/main.cpp\
         src/mainwindow.cpp\
         src/orderwidget.cpp\
         src/singleordertab.cpp\
-        src/singleordertablemodel.cpp
+        src/singleordertablemodel.cpp\
+        src/singleorderformdialog.cpp
 
 HEADERS  += include/mainwindow.h\
             include/orderwidget.h\
             include/singleordertab.h\
-            include/singleordertablemodel.h
+            include/singleordertablemodel.h\
+            include/singleorderformdialog.h
 
 # RESOURCES += rc/tradebookdemo.qrc
 

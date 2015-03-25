@@ -5,7 +5,6 @@
 
 #include <QWidget>
 
-// class QTabWidget;
 class QTableView;
 class QPushButton;
 
@@ -17,6 +16,11 @@ class SingleOrderTab : public QWidget
         SingleOrderTab(QWidget *parent = 0);
 
         void createLayout();
+
+    private slots:
+        void addOrder();
+        void editOrder();
+        void sendOrder();
 
     private:
         SingleOrderTableModel *tableModel;

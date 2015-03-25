@@ -1,4 +1,5 @@
 #include "singleordertab.h"
+#include "singleorderformdialog.h"
 
 #include <QtWidgets>
 
@@ -11,6 +12,11 @@ SingleOrderTab::SingleOrderTab(QWidget *parent)
     btnAdd = new QPushButton(tr("New"));
     btnEdit = new QPushButton(tr("Edit"));
     btnOrder = new QPushButton(tr("Order"));
+
+    // Set Connect
+    connect(btnAdd, SIGNAL(clicked()), this, SLOT(addOrder()));
+    connect(btnEdit, SIGNAL(clicked()), this, SLOT(editOrder()));
+    connect(btnOrder, SIGNAL(clicked()), this, SLOT(sendOrder()));
 
     createLayout();
 }
@@ -28,4 +34,24 @@ void SingleOrderTab::createLayout()
     layout->addLayout(btnLayout);
 
     setLayout(layout);
+}
+
+void SingleOrderTab::addOrder()
+{
+    qDebug() << "addOrder";
+
+    SingleOrderFormDialog dialog;
+    dialog.setWindowTitle(tr("Add Order"));
+
+    if (dialog.exec()) {
+        qDebug() << "addOrder OK";
+    }
+}
+
+void SingleOrderTab::editOrder()
+{
+}
+
+void SingleOrderTab::sendOrder()
+{
 }
