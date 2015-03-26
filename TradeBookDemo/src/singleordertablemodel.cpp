@@ -7,41 +7,47 @@ SingleOrderTableModel::SingleOrderTableModel(QObject *parent)
 {
 }
 
-SingleOrderTableModel::SingleOrderTableModel(QList<QPair<QString, QString> > pairs, QObject * parent)
+SingleOrderTableModel::SingleOrderTableModel(QList<Order_t> orders, QObject * parent)
     : QAbstractTableModel(parent)
 {
-    listOfPairs = pairs;
+    listOfOrder = orders;
 }
 
 int SingleOrderTableModel::rowCount(const QModelIndex &parent) const
 {
+    qDebug() << "rowCount";
     Q_UNUSED(parent);
-    return listOfPairs.size();
+    return listOfOrder.size();
 }
 
 int SingleOrderTableModel::columnCount(const QModelIndex &parent) const
 {
     Q_UNUSED(parent);
-    return 2;
+    return 4;
 }
 
 QVariant SingleOrderTableModel::data(const QModelIndex &index, int role) const
 {
+    qDebug() << "data";
     // 判断ModelIndex是否有效
     if (!index.isValid())
         return QVariant();
 
     // 判断入参，ModelIndex的行值是否有效
-    if (index.row() >= listOfPairs.size() || index.row() < 0)
+    if (index.row() >= listOfOrder.size() || index.row() < 0)
         return QVariant();
 
     if (role == Qt::DisplayRole) {
-        QPair<QString, QString> pair = listOfPairs.at(index.row());
+        Order_t order = listOfOrder.at(index.row());
 
         if (index.column() == 0)
-            return pair.first;
+            return order.symbol;
         else if (index.column() == 1)
-            return pair.second;
+            return order.direct;
+        else if (index.column() == 2)
+            return order.price;
+        else if (index.column() == 3)
+            return order.quantity;
     }
     return QVariant();
 }
@@ -54,10 +60,16 @@ QVariant SingleOrderTableModel::headerData(int section, Qt::Orientation orientat
     if (orientation == Qt::Horizontal) {
         switch (section) {
             case 0:
-                return tr("Name");
+                return tr("Symbol");
 
             case 1:
-                return tr("Address");
+                return tr("Direct");
+
+            case 2:
+                return tr("Price");
+
+            case 3:
+                return tr("Quantiry");
 
             default:
                 return QVariant();
@@ -76,19 +88,24 @@ Qt::ItemFlags SingleOrderTableModel::flags(const QModelIndex &index) const
 
 bool SingleOrderTableModel::setData(const QModelIndex &index, const QVariant &value, int role)
 {
+    qDebug() << "setData";
     if (index.isValid() && role == Qt::EditRole) {
         int row = index.row();
 
-        QPair<QString, QString> p = listOfPairs.value(row);
+        Order_t p = listOfOrder.value(row);
 
         if (index.column() == 0)
-            p.first = value.toString();
+            p.symbol = value.toString();
         else if (index.column() == 1)
-            p.second = value.toString();
+            p.direct = static_cast<Constant::ORDER_DIRECT>(value.toInt());
+        else if (index.column() == 2)
+            p.price = value.toDouble();
+        else if (index.column() == 3)
+            p.quantity = value.toInt();
         else
             return false;
 
-        listOfPairs.replace(row, p);
+        listOfOrder.replace(row, p);
         emit(dataChanged(index, index));
 
         return true;
@@ -104,8 +121,8 @@ bool SingleOrderTableModel::insertRows(int position, int rows, const QModelIndex
 
     qDebug() << "insertRows: " << rows;
     for (int row = 0; row < rows; ++row) {
-        QPair<QString, QString> pair(" ", " ");
-        listOfPairs.insert(position, pair);
+        Order_t order;
+        listOfOrder.insert(position, order);
     }
 
     endInsertRows();
@@ -119,14 +136,41 @@ bool SingleOrderTableModel::removeRows(int position, int rows, const QModelIndex
 
     qDebug() << "removeRows: " << rows;
     for (int row = 0; row < rows; ++row) {
-        listOfPairs.removeAt(position);
+        listOfOrder.removeAt(position);
     }
 
     endRemoveRows();
     return true;
 }
 
-QList<QPair<QString, QString> > SingleOrderTableModel::getList()
+QList<Order_t> SingleOrderTableModel::getList()
 {
-    return listOfPairs;
+    return listOfOrder;
+}
+
+bool SingleOrderTableModel::addOrder(const Order_t& order)
+{
+    qDebug() << "addOrder";
+    beginInsertRows(QModelIndex(), 0, 0);
+    listOfOrder.insert(0, order);
+    endInsertRows();
+
+    QModelIndex indexa = index(0, 0, QModelIndex());
+    QModelIndex indexb = index(0, 3, QModelIndex());
+    emit(dataChanged(indexa, indexb));
+
+    /*
+    insertRows(0, 1, QModelIndex());
+
+    QModelIndex idx = index(0, 0, QModelIndex());
+    setData(idx, order.symbol, Qt::EditRole);
+    idx = index(0, 1, QModelIndex());
+    setData(idx, order.direct, Qt::EditRole);
+    idx = index(0, 2, QModelIndex());
+    setData(idx, order.price, Qt::EditRole);
+    idx = index(0, 3, QModelIndex());
+    setData(idx, order.quantity, Qt::EditRole);
+    */
+
+    return true;
 }

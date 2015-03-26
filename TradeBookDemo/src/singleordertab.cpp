@@ -5,6 +5,8 @@
 
 #include <QtWidgets>
 
+#include "type.h"
+
 SingleOrderTab::SingleOrderTab(QWidget *parent)
     : QTabWidget(parent)
 {
@@ -21,8 +23,10 @@ SingleOrderTab_DMA::SingleOrderTab_DMA(QWidget *parent)
     orderForm = new SingleOrderForm(this);
 
     tableModel = new SingleOrderTableModel(this);
-
     tableView = new QTableView;
+    tableView->setModel(tableModel);
+    tableView->setMinimumWidth(350);
+
     btnAdd = new QPushButton(tr("&New"));
     btnEdit = new QPushButton(tr("&Edit"));
     btnCancel = new QPushButton(tr("&Cancel"));
@@ -80,6 +84,10 @@ void SingleOrderTab_DMA::cancelOrder()
 
 void SingleOrderTab_DMA::sendOrder()
 {
+    qDebug() << "sendOrder";
+
+    Order_t order = orderForm->getCurrentOrder();
+    tableModel->addOrder(order);
 }
 
 /// SingleOrderTab_Algo impl

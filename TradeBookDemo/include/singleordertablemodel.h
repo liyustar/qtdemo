@@ -4,31 +4,14 @@
 #include <QAbstractTableModel>
 #include <QList>
 
-#include <string>
-
-enum STOCK_DIRECT {
-    BUY,
-    SELL,
-};
-
-typedef struct Stock {
-    Stock(std::string s, STOCK_DIRECT d, double p, int q)
-        : symbol(s), direct(d), price(p), quantity(q)
-    {
-    }
-
-    std::string symbol;
-    STOCK_DIRECT direct;
-    double price;
-    int quantity;
-} Stock_t;
+#include "type.h"
 
 class SingleOrderTableModel : public QAbstractTableModel {
     Q_OBJECT
 
     public:
         SingleOrderTableModel(QObject *parent = 0);
-        SingleOrderTableModel(QList<QPair<QString, QString> > listofPairs, QObject * parent = 0);
+        SingleOrderTableModel(QList<Order_t> listofOrder, QObject * parent = 0);
 
         int rowCount(const QModelIndex &parent) const Q_DECL_OVERRIDE;
         int columnCount(const QModelIndex &parent) const Q_DECL_OVERRIDE;
@@ -38,10 +21,13 @@ class SingleOrderTableModel : public QAbstractTableModel {
         bool setData(const QModelIndex &index, const QVariant &value, int role = Qt::EditRole) Q_DECL_OVERRIDE;
         bool insertRows(int position, int rows, const QModelIndex &index = QModelIndex()) Q_DECL_OVERRIDE;
         bool removeRows(int position, int rows, const QModelIndex &index = QModelIndex()) Q_DECL_OVERRIDE;
-        QList<QPair<QString, QString> > getList();
+        QList<Order_t> getList();
+
+        // add Order to Model, return true when success
+        bool addOrder(const Order_t &order);
 
     private:
-        QList<QPair<QString, QString> > listOfPairs;
+        QList<Order_t> listOfOrder;
 };
 
 #endif // SINGLEORDERTABLEMODEL_H_

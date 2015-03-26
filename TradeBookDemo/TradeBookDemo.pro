@@ -28,6 +28,8 @@ SOURCES += src/main.cpp\
         src/singleorderformdialog.cpp
 
 HEADERS  += include/mainwindow.h\
+            include/constant.h\
+            include/type.h\
             include/orderwidget.h\
             include/singleorderform.h\
             include/singleordertab.h\

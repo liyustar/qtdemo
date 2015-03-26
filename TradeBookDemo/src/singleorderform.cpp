@@ -25,3 +25,12 @@ void SingleOrderForm::createFormLayout()
 
     setMaximumWidth(230);
 }
+
+Order_t SingleOrderForm::getCurrentOrder()
+{
+    Order_t order;
+    order.symbol = edtSymbol->text();
+    order.price = edtPrice->text().toDouble();
+    order.quantity = edtQty->text().toInt();
+    return order;
+}

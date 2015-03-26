@@ -2,6 +2,7 @@
 #define SINGLEORDERFORM_H_
 
 #include <QWidget>
+#include "type.h"
 
 class QFormLayout;
 class QLineEdit;
@@ -13,6 +14,8 @@ class SingleOrderForm : public QWidget
 
     public:
         SingleOrderForm(QWidget *parent = 0);
+
+        Order_t getCurrentOrder();
 
     private:
         void createFormLayout();
