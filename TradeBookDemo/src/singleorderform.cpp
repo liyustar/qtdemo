@@ -22,4 +22,6 @@ void SingleOrderForm::createFormLayout()
     formLayout->addRow(new QLabel("Direct:"), combDirect);
     formLayout->addRow(new QLabel("Price:"), edtPrice);
     formLayout->addRow(new QLabel("Quatity:"), edtQty);
+
+    setMaximumWidth(230);
 }

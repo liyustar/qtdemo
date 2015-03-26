@@ -6,8 +6,6 @@
 class QFormLayout;
 class QLineEdit;
 class QComboBox;
-class QDoubleSpinBox;
-class QSpinBox;
 
 class SingleOrderForm : public QWidget
 {

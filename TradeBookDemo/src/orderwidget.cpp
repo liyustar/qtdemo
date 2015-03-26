@@ -54,6 +54,7 @@ void OrderWidget::initWidgetStatus()
     buttonsWidget->setMovement(QListView::Static);
     buttonsWidget->setIconSize(QSize(96, 128));
     buttonsWidget->setMaximumWidth(128);
+    buttonsWidget->setMinimumWidth(128);
     buttonsWidget->setSpacing(12);
 }
 
