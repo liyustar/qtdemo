@@ -20,7 +20,9 @@ CONFIG(debug, debug|release) {
 }
 
 SOURCES += src/main.cpp\
+        src/constant.cpp\
         src/mainwindow.cpp\
+        src/methodinvoker.cpp\
         src/orderwidget.cpp\
         src/singleorderform.cpp\
         src/singleordertab.cpp\
@@ -30,6 +32,7 @@ SOURCES += src/main.cpp\
 HEADERS  += include/mainwindow.h\
             include/constant.h\
             include/type.h\
+            include/methodinvoker.h\
             include/orderwidget.h\
             include/singleorderform.h\
             include/singleordertab.h\
@@ -40,8 +43,10 @@ HEADERS  += include/mainwindow.h\
 
 UI_DIR   =  ui
 
-INCLUDEPATH += include ui
+INCLUDEPATH += include ui /home/lyx/Tool/curl-7.41.0/include
 
 DESTDIR = bin
 MOC_DIR = tmp
 # OBJECTS_DIR = tmp
+
+unix:LIBS += -lcurl
