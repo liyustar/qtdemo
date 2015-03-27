@@ -21,6 +21,7 @@ CONFIG(debug, debug|release) {
 
 SOURCES += src/main.cpp\
         src/constant.cpp\
+        src/type.cpp\
         src/mainwindow.cpp\
         src/methodinvoker.cpp\
         src/orderwidget.cpp\

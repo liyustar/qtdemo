@@ -87,7 +87,19 @@ void SingleOrderTab_DMA::sendOrder()
     qDebug() << "sendOrder";
 
     Order_t order = orderForm->getCurrentOrder();
+    ParamMap params = convToParam(order);
+    MethodInvoker mi;
+    mi.registerDelegate(this);
+    qDebug() << "Invoke";
+    int rst = mi.invoke("hello", params);
+    qDebug() << "Invoke rst: " << rst;
+    order = convToOrder(params);
     tableModel->addOrder(order);
+}
+
+std::string& SingleOrderTab_DMA::onGetStringStore()
+{
+    return store;
 }
 
 /// SingleOrderTab_Algo impl

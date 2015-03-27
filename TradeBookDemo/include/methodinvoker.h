@@ -4,6 +4,8 @@
 #include <string>
 #include <map>
 
+#include "type.h"
+
 class MethodInvokerDelegate
 {
     public:
@@ -13,8 +15,6 @@ class MethodInvokerDelegate
 class MethodInvoker
 {
     public:
-        typedef std::map<std::string, std::string> ParamMap;
-
         MethodInvoker() : delegate(NULL) {}
         void registerDelegate(MethodInvokerDelegate* delegate);
         // invoke web interface

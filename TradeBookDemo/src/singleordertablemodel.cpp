@@ -15,7 +15,6 @@ SingleOrderTableModel::SingleOrderTableModel(QList<Order_t> orders, QObject * pa
 
 int SingleOrderTableModel::rowCount(const QModelIndex &parent) const
 {
-    qDebug() << "rowCount";
     Q_UNUSED(parent);
     return listOfOrder.size();
 }
@@ -28,7 +27,6 @@ int SingleOrderTableModel::columnCount(const QModelIndex &parent) const
 
 QVariant SingleOrderTableModel::data(const QModelIndex &index, int role) const
 {
-    qDebug() << "data";
     // 判断ModelIndex是否有效
     if (!index.isValid())
         return QVariant();
@@ -42,10 +40,16 @@ QVariant SingleOrderTableModel::data(const QModelIndex &index, int role) const
 
         if (index.column() == 0)
             return order.symbol;
-        else if (index.column() == 1)
-            return order.direct;
+        else if (index.column() == 1) {
+            if (Constant::ORDER_BUY == order.direct)
+                return QString("Buy");
+            else if (Constant::ORDER_SELL == order.direct)
+                return QString("Sell");
+            else
+                return QString("[Unknow]");
+        }
         else if (index.column() == 2)
-            return order.price;
+            return QString().setNum(order.price, 'g', 16);
         else if (index.column() == 3)
             return order.quantity;
     }

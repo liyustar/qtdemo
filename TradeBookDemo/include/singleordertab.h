@@ -1,6 +1,8 @@
 #ifndef SINGLEORDERTAB_H_
 #define SINGLEORDERTAB_H_
 
+#include "methodinvoker.h"
+
 #include <QWidget>
 #include <QTabWidget>
 
@@ -31,12 +33,15 @@ class SingleOrderTab : public QTabWidget
 /**
  * Display single order tab ui, for DMA order
  */
-class SingleOrderTab_DMA : public QWidget
+class SingleOrderTab_DMA : public QWidget, public MethodInvokerDelegate
 {
     Q_OBJECT
 
     public:
         SingleOrderTab_DMA(QWidget *parent = 0);
+
+    public:
+        std::string& onGetStringStore();
 
     private slots:
         void addOrder();
@@ -55,6 +60,8 @@ class SingleOrderTab_DMA : public QWidget
         QPushButton *btnEdit;
         QPushButton *btnCancel;
         QPushButton *btnOrder;
+
+        std::string store;
 };
 
 /**

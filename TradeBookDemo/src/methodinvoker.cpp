@@ -17,11 +17,11 @@ size_t write_callback(char *ptr, size_t size, size_t nmumb, void *userp)
     return size * nmumb;
 }
 
-std::string mapToJsonstr(const MethodInvoker::ParamMap& params)
+std::string mapToJsonstr(const ParamMap& params)
 {
     // init post params
     QJsonObject json;
-    for (MethodInvoker::ParamMap::const_iterator iter = params.begin();
+    for (ParamMap::const_iterator iter = params.begin();
             iter != params.end(); ++iter) {
         json[iter->first.c_str()] = iter->second.c_str();
     }
@@ -33,11 +33,12 @@ std::string mapToJsonstr(const MethodInvoker::ParamMap& params)
     return data;
 }
 
-MethodInvoker::ParamMap responseToMap(const std::string& response)
+ParamMap responseToMap(const std::string& response)
 {
-    MethodInvoker::ParamMap params;
-    QJsonDocument doc = QJsonDocument::fromRawData(response.data(), response.length());
-    QJsonObject obj = doc.object();
+    ParamMap params;
+    QByteArray bytes(response.data(), response.length());
+    QJsonDocument doc = QJsonDocument::fromJson(bytes);
+    QJsonObject obj = doc.object()["data"].toObject();
     for (QJsonObject::const_iterator iter = obj.begin();
             iter != obj.end(); ++iter) {
         params[iter.key().toUtf8().data()] = iter.value().toString().toUtf8().data();
@@ -72,6 +73,7 @@ int MethodInvoker::invoke(const std::string& method, ParamMap& params)
         }
         else {
             // return params
+            qDebug() << "delegate: " << delegate->onGetStringStore().c_str();
             params = responseToMap(delegate->onGetStringStore());
             rst = 0;
         }
